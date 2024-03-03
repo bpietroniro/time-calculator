@@ -1,35 +1,53 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
+
+function NumericInput({ onChange }: { onChange: (value: number) => void }) {
+  const [input, setInput] = useState(0);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = Number(e.target.value);
+    setInput(newValue);
+    onChange(newValue);
+  };
+  return (
+    <input type="number" value={input} onChange={(e) => handleChange(e)} />
+  );
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [totalHours, setTotalHours] = useState(0);
+  const [totalMinutes, setTotalMinutes] = useState(0);
+  const [totalSeconds, setTotalSeconds] = useState(0);
+
+  const handleHourChange = (value: number) => {
+    setTotalHours(value);
+  };
+
+  const handleMinuteChange = (value: number) => {
+    setTotalMinutes(value);
+  };
+
+  const handleSecondChange = (value: number) => {
+    setTotalSeconds(value);
+  };
 
   return (
     <>
+      <h1>Time Calculator</h1>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <NumericInput onChange={handleHourChange} />
+        <NumericInput onChange={handleMinuteChange} />
+        <NumericInput onChange={handleSecondChange} />
       </div>
-      <h1>Vite + React</h1>
+      {/* <button onClick={handleAddInput}>Add Input</button> */}
+      <p>Total hours: {totalHours}</p>
+      <p>Total minutes: {totalMinutes}</p>
+      <p>Total seconds: {totalSeconds}</p>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
 export default App
