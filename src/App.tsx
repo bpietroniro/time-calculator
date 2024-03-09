@@ -1,49 +1,64 @@
 import { useState } from 'react'
 import './App.css'
 
+interface TimeObject {
+  hours: number
+  minutes: number
+  seconds: number
+}
 
-function NumericInput({ onChange }: { onChange: (value: number) => void }) {
-  const [input, setInput] = useState(0);
+interface TimeGroup extends TimeObject {
+  id: number
+}
+
+type TimeFieldProps = {
+  id: number
+  onTimeChange: (id: number, time: TimeObject) => void
+}
+
+function TimeField({ id, onTimeChange }: TimeFieldProps ) {
+  const [time, setTime] = useState<TimeObject>({hours: 0, minutes: 0, seconds: 0});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(e.target.value);
-    setInput(newValue);
-    onChange(newValue);
-  };
+    const newTime = {...time, [e.target.name]: parseInt(e.target.value, 10) || 0};
+    setTime(newTime);
+    onTimeChange(id, newTime)
+  }
+
   return (
-    <input type="number" value={input} onChange={(e) => handleChange(e)} />
-  );
+    <div key={id}>
+      <input type="number" name="hours" value={time.hours} onChange={(e) => handleChange(e)} />
+      <input type="number" name="minutes" value={time.minutes} onChange={(e) => handleChange(e)} />
+      <input type="number" name="seconds" value={time.seconds} onChange={(e) => handleChange(e)} />
+    </div>
+  )
 }
 
 function App() {
-  const [totalHours, setTotalHours] = useState(0);
-  const [totalMinutes, setTotalMinutes] = useState(0);
-  const [totalSeconds, setTotalSeconds] = useState(0);
+  const [timeGroups, setTimeGroups] = useState<TimeGroup[]>([{id: 0, hours: 0, minutes: 0, seconds: 0}]);
+  const [totalTime, setTotalTime] = useState<TimeObject>({hours: 0, minutes: 0, seconds: 0});
+  const [nextId, setNextId] = useState(1);
 
-  const handleHourChange = (value: number) => {
-    setTotalHours(value);
+  // TODO
+  const calculateTotalTime = () => {
+
   };
 
-  const handleMinuteChange = (value: number) => {
-    setTotalMinutes(value);
-  };
+  // TODO
+  const createNewTimeField = () => {
 
-  const handleSecondChange = (value: number) => {
-    setTotalSeconds(value);
   };
 
   return (
     <>
       <h1>Time Calculator</h1>
-      <div>
-        <NumericInput onChange={handleHourChange} />
-        <NumericInput onChange={handleMinuteChange} />
-        <NumericInput onChange={handleSecondChange} />
-      </div>
+      {timeGroups.map(group => {
+        return <TimeField id={group.id} onTimeChange={calculateTotalTime} />
+      })}
       {/* <button onClick={handleAddInput}>Add Input</button> */}
-      <p>Total hours: {totalHours}</p>
-      <p>Total minutes: {totalMinutes}</p>
-      <p>Total seconds: {totalSeconds}</p>
+      <p>Total hours: {totalTime.hours}</p>
+      <p>Total minutes: {totalTime.minutes}</p>
+      <p>Total seconds: {totalTime.seconds}</p>
       <div className="card">
       </div>
     </>
