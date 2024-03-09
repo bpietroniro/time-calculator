@@ -19,4 +19,5 @@ Deployed live with [Cloudflare Pages](https://react-time-calculator.pages.dev/).
 Otherwise you can:
 1. Clone this repo
 2. `cd` into project folder
-3. `npm run dev`
+3. `npm install`
+4. `npm run dev`
