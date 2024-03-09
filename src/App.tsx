@@ -27,9 +27,9 @@ function TimeField({ id, onTimeChange }: TimeFieldProps ) {
 
   return (
     <div key={id}>
-      <input type="number" name="hours" value={time.hours} onChange={(e) => handleChange(e)} />
-      <input type="number" name="minutes" value={time.minutes} onChange={(e) => handleChange(e)} />
-      <input type="number" name="seconds" value={time.seconds} onChange={(e) => handleChange(e)} />
+      <input type="number" name="hours" value={time.hours || ''} min="0" onChange={(e) => handleChange(e)} />
+      <input type="number" name="minutes" value={time.minutes || ''} min="0" onChange={(e) => handleChange(e)} />
+      <input type="number" name="seconds" value={time.seconds || ''} min="0" onChange={(e) => handleChange(e)} />
     </div>
   )
 }
@@ -40,14 +40,19 @@ function App() {
   const [nextId, setNextId] = useState(1);
 
   const calculateTotalTime = (groups: TimeGroup[]) => {
-    const newTotal = groups.reduce((acc, t) => {
+    const newTotals = groups.reduce((acc, t) => {
       acc.hours += t.hours;
       acc.minutes += t.minutes;
       acc.seconds += t.seconds;
       return acc;
     }, {hours: 0, minutes: 0, seconds: 0});
 
-    setTotalTime(newTotal);
+    newTotals.minutes += Math.floor(newTotals.seconds / 60);
+    newTotals.seconds %= 60;
+    newTotals.hours += Math.floor(newTotals.minutes / 60);
+    newTotals.minutes %= 60;
+
+    setTotalTime(newTotals);
   };
 
   const handleTimeChange = (id: number, newTime: TimeObject) => {
@@ -72,10 +77,8 @@ function App() {
         return <TimeField id={group.id} onTimeChange={handleTimeChange} />
       })}
       <button onClick={createNewTimeField}>Add another time input</button>
-      <p>Total hours: {totalTime.hours}</p>
-      <p>Total minutes: {totalTime.minutes}</p>
-      <p>Total seconds: {totalTime.seconds}</p>
       <div className="card">
+      <p>Total: {totalTime.hours}:{totalTime.minutes}:{totalTime.seconds}</p>
       </div>
     </>
   );
