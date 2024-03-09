@@ -26,11 +26,14 @@ function TimeField({ id, onTimeChange }: TimeFieldProps ) {
   }
 
   return (
-    <div key={id}>
+    <>
+      <label htmlFor="hours">H:</label>
       <input type="number" name="hours" value={time.hours || ''} min="0" onChange={(e) => handleChange(e)} />
+      <label htmlFor="minutes">M:</label>
       <input type="number" name="minutes" value={time.minutes || ''} min="0" onChange={(e) => handleChange(e)} />
+      <label htmlFor="seconds">S:</label>
       <input type="number" name="seconds" value={time.seconds || ''} min="0" onChange={(e) => handleChange(e)} />
-    </div>
+    </>
   )
 }
 
@@ -63,22 +66,37 @@ function App() {
     calculateTotalTime(updatedTimeGroups);
   };
 
-  // TODO
   const createNewTimeField = () => {
     const id = nextId;
     setNextId(prev => prev + 1);
     setTimeGroups([...timeGroups, {id, hours: 0, minutes: 0, seconds: 0}])
   };
 
+  // TODO
+  const deleteTimeField = (id: number) => {
+    console.log(`Deleting ${id}`);
+    const updatedTimeGroups = timeGroups.filter(group => {
+      return group.id !== id;
+    });
+    setTimeGroups(updatedTimeGroups);
+    calculateTotalTime(updatedTimeGroups);
+  };
+
   return (
     <>
       <h1>Time Calculator</h1>
       {timeGroups.map(group => {
-        return <TimeField id={group.id} onTimeChange={handleTimeChange} />
+        return (
+          <div key={group.id}>
+            <TimeField id={group.id} onTimeChange={handleTimeChange} />
+            <button onClick={() => deleteTimeField(group.id)}>Delete</button>
+          </div>
+        )
       })}
       <button onClick={createNewTimeField}>Add another time input</button>
       <div className="card">
-      <p>Total: {totalTime.hours}:{totalTime.minutes}:{totalTime.seconds}</p>
+      <h2>Total</h2>
+      <p>{totalTime.hours}:{totalTime.minutes}:{totalTime.seconds}</p>
       </div>
     </>
   );
