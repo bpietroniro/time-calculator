@@ -22,7 +22,7 @@ function TimeField({ id, onTimeChange }: TimeFieldProps ) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTime = {...time, [e.target.name]: parseInt(e.target.value, 10) || 0};
     setTime(newTime);
-    onTimeChange(id, newTime)
+    onTimeChange(id, newTime);
   }
 
   return (
@@ -39,23 +39,39 @@ function App() {
   const [totalTime, setTotalTime] = useState<TimeObject>({hours: 0, minutes: 0, seconds: 0});
   const [nextId, setNextId] = useState(1);
 
-  // TODO
-  const calculateTotalTime = () => {
+  const calculateTotalTime = (groups: TimeGroup[]) => {
+    const newTotal = groups.reduce((acc, t) => {
+      acc.hours += t.hours;
+      acc.minutes += t.minutes;
+      acc.seconds += t.seconds;
+      return acc;
+    }, {hours: 0, minutes: 0, seconds: 0});
 
+    setTotalTime(newTotal);
+  };
+
+  const handleTimeChange = (id: number, newTime: TimeObject) => {
+    const updatedTimeGroups = timeGroups.map(group => {
+      return group.id === id ? {id, ...newTime} : group;
+    });
+    setTimeGroups(updatedTimeGroups);
+    calculateTotalTime(updatedTimeGroups);
   };
 
   // TODO
   const createNewTimeField = () => {
-
+    const id = nextId;
+    setNextId(prev => prev + 1);
+    setTimeGroups([...timeGroups, {id, hours: 0, minutes: 0, seconds: 0}])
   };
 
   return (
     <>
       <h1>Time Calculator</h1>
       {timeGroups.map(group => {
-        return <TimeField id={group.id} onTimeChange={calculateTotalTime} />
+        return <TimeField id={group.id} onTimeChange={handleTimeChange} />
       })}
-      {/* <button onClick={handleAddInput}>Add Input</button> */}
+      <button onClick={createNewTimeField}>Add another time input</button>
       <p>Total hours: {totalTime.hours}</p>
       <p>Total minutes: {totalTime.minutes}</p>
       <p>Total seconds: {totalTime.seconds}</p>
