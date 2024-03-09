@@ -8,7 +8,7 @@ Eventually, it'll also calculate a more realistic "total time required", dependi
 
 # Why?
 
-A lot of the learning I do these days in online, especially when picking up a new programming language or framework, or studying for a certification.
+A lot of the learning I do these days is online, especially when picking up a new programming language or framework, or studying for a certification.
 
 Online learning is great. But some of these courses are *long*. It's nice how things tend to be split up into bite-sized chunks. However, when faced with dozens of videos to get through, sometimes I just want to know how long it's going to take me to reach the finish line. If that sounds familiar, this widget is for you too.
 
