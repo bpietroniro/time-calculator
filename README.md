@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+(work in progress)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# What?
 
-Currently, two official plugins are available:
+A simple browser widget that lets you enter in a series of time amounts (hours, minutes, seconds), and automatically calculates the total for you.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Eventually, it'll also calculate a more realistic "total time required", depending on your desired length of work sessions and factoring in short breaks. (Dear Pomodoro method: I'd be completely lost without you. 😍)
 
-## Expanding the ESLint configuration
+# Why?
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+A lot of the learning I do these days in online, especially when picking up a new programming language or framework, or studying for a certification.
 
-- Configure the top-level `parserOptions` property like this:
+Online learning is great. But some of these courses are *long*. It's nice how things tend to be split up into bite-sized chunks. However, when faced with dozens of videos to get through, sometimes I just want to know how long it's going to take me to reach the finish line. If that sounds familiar, this widget is for you too.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+# How?
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Deployed live with [Cloudflare Pages](https://react-time-calculator.pages.dev/).
+
+Otherwise you can:
+1. Clone this repo
+2. `cd` into project folder
+3. `npm run dev`
