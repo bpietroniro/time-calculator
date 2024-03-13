@@ -17,7 +17,7 @@ type TimeFieldProps = {
   autoFocus: boolean
 }
 
-function TimeField({ id, onTimeChange, autoFocus }: TimeFieldProps ) {
+const TimeField = ({ id, onTimeChange, autoFocus }: TimeFieldProps ) => {
   const [time, setTime] = useState<TimeObject>({hours: 0, minutes: 0, seconds: 0});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +38,7 @@ function TimeField({ id, onTimeChange, autoFocus }: TimeFieldProps ) {
   )
 }
 
-function App() {
+const App = () => {
   const [timeGroups, setTimeGroups] = useState<TimeGroup[]>([{id: 0, hours: 0, minutes: 0, seconds: 0}]);
   const [totalTime, setTotalTime] = useState<TimeObject>({hours: 0, minutes: 0, seconds: 0});
   const [nextId, setNextId] = useState(1);
@@ -82,7 +82,7 @@ function App() {
     calculateTotalTime(updatedTimeGroups);
   };
 
-  function formatTime(time: TimeObject): string {
+  const formatTime = (time: TimeObject): string => {
     const formattedHours = time.hours.toString().padStart(2, '0');
     const formattedMinutes = time.minutes.toString().padStart(2, '0');
     const formattedSeconds = time.seconds.toString().padStart(2, '0');
