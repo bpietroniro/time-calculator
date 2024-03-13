@@ -14,9 +14,10 @@ interface TimeGroup extends TimeObject {
 type TimeFieldProps = {
   id: number
   onTimeChange: (id: number, time: TimeObject) => void
+  autoFocus: boolean
 }
 
-function TimeField({ id, onTimeChange }: TimeFieldProps ) {
+function TimeField({ id, onTimeChange, autoFocus }: TimeFieldProps ) {
   const [time, setTime] = useState<TimeObject>({hours: 0, minutes: 0, seconds: 0});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +29,7 @@ function TimeField({ id, onTimeChange }: TimeFieldProps ) {
   return (
     <>
       <label htmlFor="hours">H:</label>
-      <input type="number" name="hours" value={time.hours || ''} min="0" onChange={(e) => handleChange(e)} />
+      <input type="number" name="hours" value={time.hours || ''} min="0" onChange={(e) => handleChange(e)} autoFocus={autoFocus} />
       <label htmlFor="minutes">M:</label>
       <input type="number" name="minutes" value={time.minutes || ''} min="0" onChange={(e) => handleChange(e)} />
       <label htmlFor="seconds">S:</label>
@@ -72,7 +73,6 @@ function App() {
     setTimeGroups([...timeGroups, {id, hours: 0, minutes: 0, seconds: 0}])
   };
 
-  // TODO
   const deleteTimeField = (id: number) => {
     console.log(`Deleting ${id}`);
     const updatedTimeGroups = timeGroups.filter(group => {
@@ -82,21 +82,30 @@ function App() {
     calculateTotalTime(updatedTimeGroups);
   };
 
+  function formatTime(time: TimeObject): string {
+    const formattedHours = time.hours.toString().padStart(2, '0');
+    const formattedMinutes = time.minutes.toString().padStart(2, '0');
+    const formattedSeconds = time.seconds.toString().padStart(2, '0');
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  }
+
   return (
     <>
       <h1>Time Calculator</h1>
-      {timeGroups.map(group => {
+      <div className="all-time-fields">
+      {timeGroups.map((group, index) => {
         return (
-          <div key={group.id}>
-            <TimeField id={group.id} onTimeChange={handleTimeChange} />
+          <div className="time-field" key={group.id}>
+            <TimeField id={group.id} onTimeChange={handleTimeChange} autoFocus={index === timeGroups.length - 1}/>
             <button onClick={() => deleteTimeField(group.id)}>Delete</button>
           </div>
         )
       })}
+      </div>
       <button onClick={createNewTimeField}>Add another time input</button>
       <div className="card">
-      <h2>Total</h2>
-      <p>{totalTime.hours}:{totalTime.minutes}:{totalTime.seconds}</p>
+        <h2>Total</h2>
+        <p>{formatTime(totalTime)}</p>
       </div>
     </>
   );
