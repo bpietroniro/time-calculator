@@ -27,14 +27,14 @@ const TimeField = ({ id, onTimeChange, autoFocus }: TimeFieldProps ) => {
   }
 
   return (
-    <>
+    <div className="time-field">
       <label htmlFor="hours">H:</label>
-      <input type="number" name="hours" value={time.hours || ''} min="0" onChange={(e) => handleChange(e)} autoFocus={autoFocus} />
+      <input type="number" name="hours" alt="hours" value={time.hours || ''} min="0" onChange={(e) => handleChange(e)} autoFocus={autoFocus} />
       <label htmlFor="minutes">M:</label>
-      <input type="number" name="minutes" value={time.minutes || ''} min="0" onChange={(e) => handleChange(e)} />
+      <input type="number" name="minutes" alt="minutes" value={time.minutes || ''} min="0" onChange={(e) => handleChange(e)} />
       <label htmlFor="seconds">S:</label>
-      <input type="number" name="seconds" value={time.seconds || ''} min="0" onChange={(e) => handleChange(e)} />
-    </>
+      <input type="number" name="seconds" alt="seconds" value={time.seconds || ''} min="0" onChange={(e) => handleChange(e)} />
+    </div>
   )
 }
 
@@ -90,7 +90,7 @@ const App = () => {
   }
 
   return (
-    <>
+    <div data-testid="App">
       <h1>Time Calculator</h1>
       <div className="all-time-fields">
       {timeGroups.map((group, index) => {
@@ -107,7 +107,7 @@ const App = () => {
         <h2>Total</h2>
         <p>{formatTime(totalTime)}</p>
       </div>
-    </>
+    </div>
   );
 }
 
