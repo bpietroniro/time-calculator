@@ -7,10 +7,13 @@
 
 .time-field {
   display: inline;
-  margin-bottom: 10px;
 }
 
-.all-time-fields {
+.time-field-container {
+  margin-bottom: 1.5rem;
+}
+
+.all-time-fields{
   margin-bottom: 50px;
 }
 
@@ -19,6 +22,11 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.delete {
+  font-size: 1rem;
+  display: inline;
 }
 
 .golden {

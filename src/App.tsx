@@ -102,12 +102,10 @@ const App = () => {
       <div className="all-time-fields">
       {timeGroups.map((group, index) => {
         return (
-          <div className="time-field-container" key={group.id}>
-            <div className="time-field">
+            <div className="time-field-container">
               <TimeField id={group.id} onTimeChange={handleTimeChange} autoFocus={index === timeGroups.length - 1}/>
-              <button onClick={() => deleteTimeField(group.id)}>Delete</button>
+              <button className="delete" onClick={() => deleteTimeField(group.id)}>Delete</button>
             </div>
-          </div>
         )
       })}
       </div>
