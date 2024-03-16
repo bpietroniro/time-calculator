@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import './App.css'
 
 interface TimeObject {
@@ -40,25 +40,34 @@ const TimeField = ({ id, onTimeChange, autoFocus }: TimeFieldProps ) => {
 
 const App = () => {
   const [timeGroups, setTimeGroups] = useState<TimeGroup[]>([{id: 0, hours: 0, minutes: 0, seconds: 0}]);
-  const [totalTime, setTotalTime] = useState<TimeObject>({hours: 0, minutes: 0, seconds: 0});
+  const [totalTime, setTotalTime] = useState(0);
   const [nextId, setNextId] = useState(1);
   const [speed, setSpeed] = useState(1.0);
 
   const calculateTotalTime = (groups: TimeGroup[]) => {
-    const newTotals = groups.reduce((acc, t) => {
-      acc.hours += t.hours;
-      acc.minutes += t.minutes;
-      acc.seconds += t.seconds;
+    const newTotal = groups.reduce((acc, t) => {
+      acc += t.hours * 3600;
+      acc += t.minutes * 60;
+      acc += t.seconds;
       return acc;
-    }, {hours: 0, minutes: 0, seconds: 0});
+    }, 0);
 
-    newTotals.minutes += Math.floor(newTotals.seconds / 60);
-    newTotals.seconds %= 60;
-    newTotals.hours += Math.floor(newTotals.minutes / 60);
-    newTotals.minutes %= 60;
-
-    setTotalTime(newTotals);
+    setTotalTime(newTotal);
   };
+
+  const adjustAndDisplayTime = useMemo(() => {
+    const adjustedSeconds = Math.round(totalTime / speed);
+    
+    const hours = Math.floor(adjustedSeconds / 3600);
+    const minutes = Math.floor((adjustedSeconds % 3600) / 60);
+    const seconds = adjustedSeconds % 60;
+
+    const formattedHours = hours.toString().padStart(2, '0');
+    const formattedMinutes = minutes.toString().padStart(2, '0');
+    const formattedSeconds = seconds.toString().padStart(2, '0');
+
+    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+  }, [totalTime, speed]);
 
   const handleTimeChange = (id: number, newTime: TimeObject) => {
     const updatedTimeGroups = timeGroups.map(group => {
@@ -70,7 +79,6 @@ const App = () => {
 
   const handleSpeedChange = (newSpeed: number) => {
     setSpeed(newSpeed);
-    // TODO: figure out how to update the total correctly
   }
 
   const createNewTimeField = () => {
@@ -87,13 +95,6 @@ const App = () => {
     setTimeGroups(updatedTimeGroups);
     calculateTotalTime(updatedTimeGroups);
   };
-
-  const formatTime = (time: TimeObject): string => {
-    const formattedHours = time.hours.toString().padStart(2, '0');
-    const formattedMinutes = time.minutes.toString().padStart(2, '0');
-    const formattedSeconds = time.seconds.toString().padStart(2, '0');
-    return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-  }
 
   return (
     <div data-testid="App">
@@ -130,7 +131,7 @@ const App = () => {
           <input type="radio" id="option-2.0" name="multiplier" value={2.0} checked={speed === 2.0} onChange={() => handleSpeedChange(2.0)} />
           <label htmlFor="option-2.0">2.0x</label>
         </div>
-        <p id="total-time">{formatTime(totalTime)}</p>
+        <p id="total-time">{adjustAndDisplayTime}</p>
       </div>
     </div>
   );
