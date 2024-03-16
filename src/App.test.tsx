@@ -7,7 +7,7 @@ test('renders App component', () => {
   expect(appElement).toBeInTheDocument()
 })
 
-test('renders TimeField component', () => {
+test('renders a single TimeField component by default', () => {
   render(<App />)
   const timeFieldElements = screen.getAllByAltText(/^(hours|minutes|seconds)$/);
   expect(timeFieldElements).toHaveLength(3)

@@ -91,18 +91,20 @@ const App = () => {
 
   return (
     <div data-testid="App">
-      <h1>Time Calculator</h1>
+      <h1 className="gradient-text">Time Calculator</h1>
       <div className="all-time-fields">
       {timeGroups.map((group, index) => {
         return (
-          <div className="time-field" key={group.id}>
-            <TimeField id={group.id} onTimeChange={handleTimeChange} autoFocus={index === timeGroups.length - 1}/>
-            <button onClick={() => deleteTimeField(group.id)}>Delete</button>
+          <div className="time-field-container" key={group.id}>
+            <div className="time-field">
+              <TimeField id={group.id} onTimeChange={handleTimeChange} autoFocus={index === timeGroups.length - 1}/>
+              <button onClick={() => deleteTimeField(group.id)}>Delete</button>
+            </div>
           </div>
         )
       })}
       </div>
-      <button onClick={createNewTimeField}>Add another time input</button>
+      <button className="gradient-text" onClick={createNewTimeField}>Add another time input</button>
       <div className="card">
         <h2>Total</h2>
         <p>{formatTime(totalTime)}</p>

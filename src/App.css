@@ -6,9 +6,16 @@
 }
 
 .time-field {
+  display: inline;
   margin-bottom: 10px;
 }
 
 .all-time-fields {
   margin-bottom: 50px;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #FFE564, #64FF9D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
