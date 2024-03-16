@@ -42,6 +42,7 @@ const App = () => {
   const [timeGroups, setTimeGroups] = useState<TimeGroup[]>([{id: 0, hours: 0, minutes: 0, seconds: 0}]);
   const [totalTime, setTotalTime] = useState<TimeObject>({hours: 0, minutes: 0, seconds: 0});
   const [nextId, setNextId] = useState(1);
+  const [speed, setSpeed] = useState(1.0);
 
   const calculateTotalTime = (groups: TimeGroup[]) => {
     const newTotals = groups.reduce((acc, t) => {
@@ -66,6 +67,11 @@ const App = () => {
     setTimeGroups(updatedTimeGroups);
     calculateTotalTime(updatedTimeGroups);
   };
+
+  const handleSpeedChange = (newSpeed: number) => {
+    setSpeed(newSpeed);
+    // TODO: figure out how to update the total correctly
+  }
 
   const createNewTimeField = () => {
     const id = nextId;
@@ -107,7 +113,24 @@ const App = () => {
       <button className="gradient-text" onClick={createNewTimeField}>Add another time input</button>
       <div className="card">
         <h2>Total</h2>
-        <p>{formatTime(totalTime)}</p>
+        <div className="radio-group">
+          <span>Speed:</span>
+          <input type="radio" id="option-0.5" name="multiplier" value={0.5} checked={speed === 0.5} onChange={() => handleSpeedChange(0.5)} />
+          <label htmlFor="option-0.5">0.5x</label>
+          <input type="radio" id="option-0.75" name="multiplier" value={0.75} checked={speed === 0.75} onChange={() => handleSpeedChange(0.75)} />
+          <label htmlFor="option-0.75">0.75x</label>
+          <input type="radio" id="option-1.0" name="multiplier" value={1.0} checked={speed === 1.0} onChange={() => handleSpeedChange(1.0)} />
+          <label htmlFor="option-1.0">1.0x</label>
+          <input type="radio" id="option-1.25" name="multiplier" value={1.25} checked={speed === 1.25} onChange={() => handleSpeedChange(1.25)} />
+          <label htmlFor="option-1.25">1.25x</label>
+          <input type="radio" id="option-1.5" name="multiplier" value={1.5} checked={speed === 1.5} onChange={() => handleSpeedChange(1.5)} />
+          <label htmlFor="option-1.5">1.5x</label>
+          <input type="radio" id="option-1.75" name="multiplier" value={1.75} checked={speed === 1.75} onChange={() => handleSpeedChange(1.75)} />
+          <label htmlFor="option-1.75">1.75x</label>
+          <input type="radio" id="option-2.0" name="multiplier" value={2.0} checked={speed === 2.0} onChange={() => handleSpeedChange(2.0)} />
+          <label htmlFor="option-2.0">2.0x</label>
+        </div>
+        <p id="total-time">{formatTime(totalTime)}</p>
       </div>
     </div>
   );
