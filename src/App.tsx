@@ -110,9 +110,9 @@ const App = () => {
         )
       })}
       </div>
-      <button className="gradient-text" onClick={createNewTimeField}>Add another time input</button>
+      <button className="golden" onClick={createNewTimeField}>Add another time input</button>
       <div className="card">
-        <h2>Total</h2>
+        <h2 className="melon">Total</h2>
         <div className="radio-group">
           <span>Speed:</span>
           <input type="radio" id="option-0.5" name="multiplier" value={0.5} checked={speed === 0.5} onChange={() => handleSpeedChange(0.5)} />

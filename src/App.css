@@ -15,9 +15,18 @@
 }
 
 .gradient-text {
-  background: linear-gradient(to right, #FFE564, #64FF9D);
+  background-image: linear-gradient(to right, #FFE564, #64FF9D);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.golden {
+  color: #FFE564;
+}
+
+.melon {
+  color: #64FF9D;
 }
 
 #total-time {
