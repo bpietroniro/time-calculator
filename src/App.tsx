@@ -104,7 +104,7 @@ const App = () => {
         return (
             <div className="time-field-container">
               <TimeField id={group.id} onTimeChange={handleTimeChange} autoFocus={index === timeGroups.length - 1}/>
-              <button className="delete" onClick={() => deleteTimeField(group.id)}>Delete</button>
+              <button className="delete" onClick={() => deleteTimeField(group.id)}><i className="fa fa-trash"></i></button>
             </div>
         )
       })}

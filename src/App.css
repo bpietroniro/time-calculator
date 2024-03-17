@@ -25,8 +25,8 @@
 }
 
 .delete {
-  font-size: 1rem;
   display: inline;
+  color: hsl(93,82%,73%);
 }
 
 .golden {
