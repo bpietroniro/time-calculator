@@ -40,3 +40,25 @@
 #total-time {
   font-size: 1.5rem;
 }
+
+@media (prefers-color-scheme: light) {
+.gradient-text {
+  background-image: linear-gradient(to right, #FDBE00, 60%, #21FB71);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+  .golden {
+    color: #FDBE00;
+  }
+
+  .melon {
+    color: #21FB71;
+  }
+
+  .delete {
+  display: inline;
+  color: #a9d52c;
+}
+}
