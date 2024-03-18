@@ -102,7 +102,7 @@ const App = () => {
       <div className="all-time-fields">
       {timeGroups.map((group, index) => {
         return (
-            <div className="time-field-container">
+            <div className="time-field-container" key={group.id}>
               <TimeField id={group.id} onTimeChange={handleTimeChange} autoFocus={index === timeGroups.length - 1}/>
               <button aria-label="delete" className="delete" onClick={() => deleteTimeField(group.id)}><i className="fa fa-trash"></i></button>
             </div>
