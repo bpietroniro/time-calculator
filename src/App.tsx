@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import "./App.css";
 
 interface TimeObject {
@@ -130,11 +130,11 @@ const App = () => {
     setSpeed(newSpeed);
   };
 
-  const createNewTimeField = () => {
+  const createNewTimeField = useCallback(() => {
     const id = nextId;
     setNextId((prev) => prev + 1);
     setTimeGroups([...timeGroups, { id, hours: 0, minutes: 0, seconds: 0 }]);
-  };
+  }, [nextId, timeGroups]);
 
   const deleteTimeField = (id: number) => {
     console.log(`Deleting ${id}`);
@@ -144,6 +144,21 @@ const App = () => {
     setTimeGroups(updatedTimeGroups);
     calculateTotalTime(updatedTimeGroups);
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      console.log(`Key pressed: ${event.key}`);
+      if (event.shiftKey && event.key.toLowerCase() === "n") {
+        createNewTimeField();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [createNewTimeField]);
 
   return (
     <div data-testid="App">
