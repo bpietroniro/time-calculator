@@ -5,20 +5,16 @@
   text-align: center;
 }
 
-.time-field {
-  display: inline;
-}
-
 .time-field-container {
   margin-bottom: 1.5rem;
 }
 
-.all-time-fields{
+.all-time-fields {
   margin-bottom: 50px;
 }
 
 .gradient-text {
-  background-image: linear-gradient(to right, #FFE564, #64FF9D);
+  background-image: linear-gradient(to right, #ffe564, #64ff9d);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -26,15 +22,19 @@
 
 .delete {
   display: inline;
-  color: hsl(93,82%,73%);
+  color: hsl(93, 82%, 73%);
 }
 
 .golden {
-  color: #FFE564;
+  color: #ffe564;
 }
 
 .melon {
-  color: #64FF9D;
+  color: #64ff9d;
+}
+
+.radio-group {
+  margin: 3rem 0;
 }
 
 #total-time {
@@ -42,23 +42,23 @@
 }
 
 @media (prefers-color-scheme: light) {
-.gradient-text {
-  background-image: linear-gradient(to right, #FDBE00, 60%, #21FB71);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+  .gradient-text {
+    background-image: linear-gradient(to right, #fdbe00, 60%, #21fb71);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
   .golden {
-    color: #FDBE00;
+    color: #fdbe00;
   }
 
   .melon {
-    color: #21FB71;
+    color: #21fb71;
   }
 
   .delete {
-  display: inline;
-  color: #a9d52c;
-}
+    display: inline;
+    color: #a9d52c;
+  }
 }
